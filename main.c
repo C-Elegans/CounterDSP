@@ -8,6 +8,7 @@
 
 #include "xc.h"
 #include <dsp.h>
+#include <uart.h>
 #include "asm_funcs.h"
 #define FCY 7372800LL
 
@@ -26,27 +27,12 @@ void setup_pll(void){
        while(!OSCCONbits.LOCK);    // wait for PLL ready
 }*/
 
-void initUart(void){
-    U1BRG=(FCY/115200)/16 - 1;
-    IEC0bits.U1RXIE = 1;
-    U1STA&=0xfffc;
-    U1MODEbits.UARTEN=1;
-    U1STAbits.UTXEN = 1;
-}
-void write(char d){
-    U1TXREG = d;
-    while(!U1STAbits.TRMT){}
-}
-void printStr(char* str){
-    while(*str){
-        write(*str++);
-    }
-}
-
 int main(void) {
-    initUart();
+    OpenUART1(UART_EN & UART_NO_PAR_8BIT, UART_TX_ENABLE, (FCY/115200)/16 - 1);
     CORCONbits.IF = 1; //Integer
-    
+    putsUART1("Hello world2!\n");
+   
+    while(BusyUART1()){}
     convolve(data1,7,filter,4);
     return 0;
 }
