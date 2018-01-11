@@ -1,0 +1,4 @@
+* uFluidics Counter Project
+This repository is the code for the EE4400 uFluidics Counting Project,
+for the dsPIC33fj128gp802. To build, make sure MPLAB X and XC16 are
+installed, then run 'make'.
