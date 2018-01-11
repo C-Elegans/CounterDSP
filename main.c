@@ -47,29 +47,44 @@ void configure_adc(void){
   AD1PCFGL = ~(1<<9);
 }
 void configure_dma0(void){
+  /* Set dma to do a word transfer, from a peripheral, and interrupt
+     when the block is finished */
   DMA0CON = DMA0_SIZE_WORD & PERIPHERAL_TO_DMA0 & DMA0_INTERRUPT_BLOCK & 
+    /* Don't write to the peripheral, increment the write register each time */
     DMA0_NORMAL & DMA0_REGISTER_POST_INCREMENT &
+    /* Swap buffers continuously, set the module to OFF for now */
     DMA0_CONTINUOUS_PING_PONG & DMA0_MODULE_OFF;
-  DMA0REQ = DMA0_AUTOMATIC & 0b1101; // ADC interrupt
+  /* Set the DMA trigger to the ADC conversion complete interrupt */
+  DMA0REQ = DMA0_AUTOMATIC & 0b1101; 
+  /* Set the first ping pong buffer to dmabuf1 */
   DMA0STA = __builtin_dmaoffset(dmabuf1);
+  /* Set the second ping pong buffer to dmabuf2 */
   DMA0STB = __builtin_dmaoffset(dmabuf2);
+  /* Sets the peripheral address to read from */
   DMA0PAD = (int) &ADCBUF0;
+  /* Number of words to transfer */
   DMA0CNT = sizeof(dmabuf1)/sizeof(dmabuf1[0]);
-  //DMA0CNT = 10;
+  /* Enable the DMA controller */
   DMA0CONbits.CHEN = 1;
 }
 void trig(void){}
 
 int main(void) {
   int i;
+  /* Zero the DMA buffer */
   for(i=0;i<sizeof(dmabuf1)/sizeof(dmabuf1[0]);i++)
     dmabuf1[i] = 0;
+  /* Set RA4 as output and set the pin high */
   TRISAbits.TRISA4 = 0;
   LATAbits.LATA4 = 1;
+  /* Open the uart */
   OpenUART1(UART_EN & UART_NO_PAR_8BIT, UART_TX_ENABLE, (FCY/115200)/16 - 1);
+
   configure_dma0();
   configure_adc();
+  /* Begin a conversion */
   ConvertADC1();
-
+  /* Halt for the debugger */
+  while(1){}
   return 0;
 }
