@@ -2,3 +2,23 @@
 This repository is the code for the EE4400 uFluidics Counting Project,
 for the dsPIC33fj128gp802. To build, make sure MPLAB X and XC16 are
 installed, then run 'make'.
+
+** Specifications
+   - Analog input signal 200mv pk, unknown waveform
+   - Amplified to some level 700mv pk?
+   - Sampled at 10kHz
+   - Cells counted somehow
+
+** TODO List [0%]
+   - [-] Test the features of the chip [40%]
+     - [X] ADC
+     - [X] UART
+     - [ ] SPI
+     - [ ] DMA
+     - [ ] 80MHz Clock
+   - [ ] Create A mini oscilloscope
+   - [ ] Collect simulated waveform
+   - [ ] Analyze simulated data in matlab, determine best counting method
+     - [ ] FFT amplitude
+     - [ ] Correlation + threshold
+   - [ ] Program above solution on dsp
