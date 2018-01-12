@@ -7,13 +7,15 @@
 
 
 #include "config.h"
+#include <libpic30.h>
 #include <dsp.h>
 #include <uart.h>
 #include <adc.h>
+#include <pps.h>
 #include <dma.h>
 #include <stdio.h>
 #include "asm_funcs.h"
-#define FCY 7372800LL
+#define FCY 7372800LL/2
 
 fractional dmabuf1[512] __attribute__((space(dma)));
 fractional dmabuf2[512] __attribute__((space(dma)));
@@ -67,6 +69,17 @@ void configure_dma0(void){
   /* Enable the DMA controller */
   DMA0CONbits.CHEN = 1;
 }
+void configure_uart(void){
+  PPSUnLock;
+  PPSOutput(OUT_FN_PPS_U1TX, OUT_PIN_PPS_RP11);
+  PPSLock;
+  OpenUART1(UART_EN & UART_NO_PAR_8BIT & UART_IDLE_CON &
+          UART_IrDA_DISABLE & UART_MODE_SIMPLEX & UART_UEN_00 &
+          UART_DIS_WAKE & UART_DIS_LOOPBACK & UART_DIS_ABAUD &
+          UART_BRGH_SIXTEEN & UART_1STOPBIT,
+          UART_TX_ENABLE & UART_IrDA_POL_INV_ZERO,
+          (FCY/115200)/16 - 1);
+}
 void trig(void){}
 
 int main(void) {
@@ -78,7 +91,11 @@ int main(void) {
   TRISAbits.TRISA4 = 0;
   LATAbits.LATA4 = 1;
   /* Open the uart */
-  OpenUART1(UART_EN & UART_NO_PAR_8BIT, UART_TX_ENABLE, (FCY/115200)/16 - 1);
+  configure_uart();
+  while(1){
+  putsUART1("Testing123\n");
+  __delay32(1000000);
+  }
 
   configure_dma0();
   configure_adc();
