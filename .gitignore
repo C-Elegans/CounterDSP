@@ -2,3 +2,5 @@ build/
 debug/
 dist/
 nbproject/
+*.stm
+*.scl
