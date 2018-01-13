@@ -10,11 +10,13 @@ installed, then run 'make'.
    - Cells counted somehow
 
 ** TODO List [0%]
-   - [-] Test the features of the chip [40%]
+   - [-] Test the features of the chip [60%]
      - [X] ADC
      - [X] UART
-     - [ ] SPI
-     - [ ] DMA
+     - [X] SPI
+     - [ ] DMA [0/2]
+       - [ ] SPI
+       - [ ] ADC
      - [ ] 80MHz Clock
    - [ ] Create A mini oscilloscope
    - [ ] Collect simulated waveform

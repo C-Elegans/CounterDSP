@@ -7,6 +7,7 @@
       <itemPath>asm_funcs.h</itemPath>
       <itemPath>config.h</itemPath>
       <itemPath>periph.h</itemPath>
+      <itemPath>spislave.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -18,6 +19,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>convolve.s</itemPath>
       <itemPath>periph.c</itemPath>
+      <itemPath>spislave.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

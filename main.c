@@ -8,9 +8,9 @@
 
 #include "config.h"
 #include <libpic30.h>
-#include <adc.h>
 #include <pps.h>
 #include <stdio.h>
+#include "spislave.h"
 #include "asm_funcs.h"
 #include "periph.h"
 
@@ -26,18 +26,26 @@ int main(void) {
   TRISAbits.TRISA4 = 0;
   LATAbits.LATA4 = 1;
   /* Open the uart */
-  configure_uart();
+  configure_spi();
   configure_dma0();
   configure_adc();
   /* Begin a conversion */
-  
+  unsigned char inc = 0;
+  unsigned char ctr = 0;
   while(1){
     //DMA0CONbits.CHEN = 1;
     ConvertADC1();
     //while(DMA0CONbits.CHEN){}
-    putcUART1(ADCBUF0>>8 & 0xff);
-    putcUART1(ADCBUF0&0xff);
-  __delay32(1000000);
+    /* putcUART1(ADCBUF0>>8 & 0xff); */
+    /* putcUART1(ADCBUF0&0xff); */
+    LATAbits.LATA4 ^= 1;
+    send_byte(ctr);
+    if(inc == 10){
+      ctr++;
+      inc = 0;
+    }
+    inc++;
+  __delay32(100000);
   }
 
   

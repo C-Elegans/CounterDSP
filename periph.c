@@ -1,4 +1,7 @@
 #include "periph.h"
+#include <adc.h>
+#include <dma.h>
+#include <pps.h>
 void configure_adc(void){
 
 
