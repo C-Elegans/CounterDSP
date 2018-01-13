@@ -2,7 +2,7 @@
 #define _PERIPH_H_
 #include <uart.h>
 #include <dsp.h>
-#define FCY 7372800LL/2
+#define FCY 79841000LL/2
 
 void configure_adc(void);
 void configure_dma0(void);

@@ -42,9 +42,9 @@ void configure_dma0(void){
   /* Set the DMA trigger to the ADC conversion complete interrupt */
   DMA0REQ = DMA0_AUTOMATIC & 0b1101; 
   /* Set the first ping pong buffer to dmabuf1 */
-  DMA0STA = __builtin_dmaoffset(dmabuf1);
+  DMA0STA = __builtin_dmaoffset(&dmabuf1);
   /* Set the second ping pong buffer to dmabuf2 */
-  DMA0STB = __builtin_dmaoffset(dmabuf2);
+  DMA0STB = __builtin_dmaoffset(&dmabuf2);
   /* Sets the peripheral address to read from */
   DMA0PAD = (int) &ADCBUF0;
   /* Number of words to transfer */
@@ -59,7 +59,7 @@ void configure_uart(void){
   OpenUART1(UART_EN & UART_NO_PAR_8BIT & UART_IDLE_CON &
           UART_IrDA_DISABLE & UART_MODE_SIMPLEX & UART_UEN_00 &
           UART_DIS_WAKE & UART_DIS_LOOPBACK & UART_DIS_ABAUD &
-          UART_BRGH_SIXTEEN & UART_1STOPBIT,
+          UART_BRGH_FOUR & UART_1STOPBIT,
           UART_TX_ENABLE & UART_IrDA_POL_INV_ZERO,
-          (FCY/115200)/16 - 1);
+          9);
 }

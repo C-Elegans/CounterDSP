@@ -10,6 +10,7 @@
 #include <libpic30.h>
 #include <pps.h>
 #include <stdio.h>
+#include <string.h>
 #include "spislave.h"
 #include "asm_funcs.h"
 #include "periph.h"
@@ -33,9 +34,10 @@ int main(void) {
   LATAbits.LATA4 = 1;
   setup_clock();
   /* Open the uart */
-  configure_spi();
-  configure_dma0();
-  configure_adc();
+  configure_uart();
+  //configure_spi();
+  //configure_dma0();
+  //configure_adc();
   /* Begin a conversion */
   unsigned char inc = 0;
   unsigned char ctr = 0;
@@ -46,13 +48,15 @@ int main(void) {
     /* putcUART1(ADCBUF0>>8 & 0xff); */
     /* putcUART1(ADCBUF0&0xff); */
     LATAbits.LATA4 ^= 1;
-    send_byte(ctr);
+    char str[] = "Hello world!!! Testing 123 123\r\n";
+    putsUART1(str);
+    //send_byte(ctr);
     if(inc == 10){
       ctr++;
       inc = 0;
     }
     inc++;
-  __delay32(1000000);
+    __delay32(10000000);
   }
 
   
