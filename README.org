@@ -3,6 +3,23 @@ This repository is the code for the EE4400 uFluidics Counting Project,
 for the dsPIC33fj128gp802. To build, make sure MPLAB X and XC16 are
 installed, then run 'make'.
 
+** Circuit
+   - Chip: dsPIC33fj128gp802 - dip variant
+   - ADC connection
+     - Pin AN9, package pin 28
+   - SPI:
+     - SCK: RP12, pin 23
+     - MOSI: RP11, pin 22
+     - MISO: RP13, pin 24
+     - SS_N: RP14, pin 25
+   - Passives:
+     - 100nF caps: pin 28, pin 20, pin 13
+     - 10uF cap: pin 20
+       - *This component is REQUIRED to program the chip*
+     - 1k pullup on MCLR_N (pin 1)
+   - Supply Voltage
+     - 3.25V
+
 ** Specifications
    - Analog input signal 200mv pk, unknown waveform
    - Amplified to some level 700mv pk?
@@ -10,14 +27,14 @@ installed, then run 'make'.
    - Cells counted somehow
 
 ** TODO List [0%]
-   - [-] Test the features of the chip [60%]
+   - [-] Test the features of the chip [80%]
      - [X] ADC
      - [X] UART
      - [X] SPI
      - [ ] DMA [0/2]
        - [ ] SPI
        - [ ] ADC
-     - [ ] 80MHz Clock
+     - [X] 80MHz Clock
    - [ ] Create A mini oscilloscope
    - [ ] Collect simulated waveform
    - [ ] Analyze simulated data in matlab, determine best counting method

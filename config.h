@@ -18,12 +18,12 @@
 #pragma config GSS = OFF                // General Segment Code Protection (User program memory is not code-protected)
 
 // FOSCSEL
-#pragma config FNOSC = FRC              // Oscillator Mode (Internal Fast RC (FRC))
+#pragma config FNOSC = FRCPLL              // Oscillator Mode (Internal Fast RC (FRC))
 #pragma config IESO = OFF               // Internal External Switch Over Mode (Start-up device with user-selected oscillator source)
 
 // FOSC
 #pragma config POSCMD = NONE            // Primary Oscillator Source (Primary Oscillator Disabled)
-#pragma config OSCIOFNC = ON            // OSC2 Pin Function (OSC2 pin has digital I/O function)
+#pragma config OSCIOFNC = OFF            // OSC2 Pin Function (OSC2 pin has digital I/O function)
 #pragma config IOL1WAY = OFF            // Peripheral Pin Select Configuration (Allow Multiple Re-configurations)
 #pragma config FCKSM = CSDCMD           // Clock Switching and Monitor (Both Clock Switching and Fail-Safe Clock Monitor are disabled)
 
