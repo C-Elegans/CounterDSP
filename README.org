@@ -31,9 +31,9 @@ installed, then run 'make'.
      - [X] ADC
      - [X] UART
      - [X] SPI
-     - [ ] DMA [0/2]
-       - [ ] SPI
-       - [ ] ADC
+     - [-] DMA [1/2]
+       - [ ] UART
+       - [X] ADC
      - [X] 80MHz Clock
    - [ ] Create A mini oscilloscope
    - [ ] Collect simulated waveform

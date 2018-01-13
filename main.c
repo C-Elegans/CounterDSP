@@ -23,6 +23,7 @@ void setup_clock(void){
   CLKDIVbits.PLLPOST = 0;
   while(!OSCCONbits.LOCK);
 }
+char hexlut[] ="0123456789ABCDEF";
 int main(void) {
   int i;
   
@@ -36,19 +37,19 @@ int main(void) {
   /* Open the uart */
   configure_uart();
   //configure_spi();
-  //configure_dma0();
-  //configure_adc();
-  /* Begin a conversion */
+  configure_dma0();
+  configure_adc();
   unsigned char inc = 0;
   unsigned char ctr = 0;
   while(1){
-    //DMA0CONbits.CHEN = 1;
-    ConvertADC1();
-    //while(DMA0CONbits.CHEN){}
+    while(IFS0bits.DMA0IF == 0) {}
+    IFS0bits.DMA0IF = 0;
     /* putcUART1(ADCBUF0>>8 & 0xff); */
     /* putcUART1(ADCBUF0&0xff); */
     LATAbits.LATA4 ^= 1;
-    char str[] = "Hello world!!! Testing 123 123\r\n";
+    char str[] = "  \r\n";
+    str[0] = hexlut[dmabuf1[0] >> 12 & 0xf];
+    str[1] = hexlut[dmabuf1[0] >> 8 & 0xf];
     putsUART1(str);
     //send_byte(ctr);
     if(inc == 10){
@@ -56,7 +57,7 @@ int main(void) {
       inc = 0;
     }
     inc++;
-    __delay32(10000000);
+    DMA0CONbits.CHEN = 1;
   }
 
   

@@ -7,7 +7,7 @@ void configure_adc(void){
 
   // Enables ADC, enables continue on idle, sets it to 12 bit mode
   // Sets the format to fraction, sets the sample clock to software control   
-  AD1CON1 = ADC_MODULE_ON & ADC_IDLE_CONTINUE & ADC_AD12B_12BIT
+  AD1CON1 = ADC_MODULE_OFF & ADC_IDLE_CONTINUE & ADC_AD12B_12BIT
 
     & ADC_FORMAT_SIGN_FRACT & ADC_CLK_AUTO & ADC_AUTO_SAMPLING_ON;
 
@@ -30,6 +30,9 @@ void configure_adc(void){
     
   // Sets AN9 as an analog pin
   AD1PCFGL = ~(1<<9);
+  IFS0bits.AD1IF = 0;
+  IEC0bits.AD1IE = 0;
+  AD1CON1bits.ADON = 1;
 }
 void configure_dma0(void){
   /* Set dma to do a word transfer, from a peripheral, and interrupt
@@ -50,7 +53,7 @@ void configure_dma0(void){
   /* Number of words to transfer */
   DMA0CNT = sizeof(dmabuf1)/sizeof(dmabuf1[0]);
   /* Enable the DMA controller */
-  
+  DMA0CONbits.CHEN = 1;
 }
 void configure_uart(void){
   PPSUnLock;
