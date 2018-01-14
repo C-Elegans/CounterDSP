@@ -27,7 +27,7 @@ installed, then run 'make'.
    - Cells counted somehow
 
 ** TODO List [0%]
-   - [-] Test the features of the chip [80%]
+   - [-] Test the features of the chip [83%]
      - [X] ADC
      - [X] UART
      - [X] SPI
@@ -35,6 +35,7 @@ installed, then run 'make'.
        - [ ] UART
        - [X] ADC
      - [X] 80MHz Clock
+     - [X] 10kHz timer
    - [ ] Create A mini oscilloscope
    - [ ] Collect simulated waveform
    - [ ] Analyze simulated data in matlab, determine best counting method

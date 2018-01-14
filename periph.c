@@ -10,6 +10,7 @@ void configure_adc(void){
   AD1CON1 = ADC_MODULE_OFF & ADC_IDLE_CONTINUE & ADC_AD12B_12BIT
 
     & ADC_FORMAT_SIGN_FRACT & ADC_CLK_AUTO & ADC_AUTO_SAMPLING_ON;
+  AD1CON1bits.SSRC = 0b010;	/* Select Timer3 interrupt for compare */
 
   //config2
   // Uses GND and VCC for the voltage reference
@@ -41,7 +42,7 @@ void configure_dma0(void){
     /* Don't write to the peripheral, increment the write register each time */
     DMA0_NORMAL & DMA0_REGISTER_POST_INCREMENT &
     /* Swap buffers continuously, set the module to OFF for now */
-    DMA0_ONE_SHOT & DMA0_MODULE_OFF;
+    DMA0_CONTINUOUS_PING_PONG & DMA0_MODULE_OFF;
   /* Set the DMA trigger to the ADC conversion complete interrupt */
   DMA0REQ = DMA0_AUTOMATIC & 0b1101; 
   /* Set the first ping pong buffer to dmabuf1 */
@@ -65,4 +66,14 @@ void configure_uart(void){
           UART_BRGH_FOUR & UART_1STOPBIT,
           UART_TX_ENABLE & UART_IrDA_POL_INV_ZERO,
           9);
+}
+
+void setupTimer3(void){
+  /* Setup for 10kHz sample rate */
+  T3CON = 0;
+  T3CONbits.TCKPS = 0b00;	/* Divide by 1 */
+  TMR3 = 0;
+  PR3 = FCY/10000LL;		/* Set for 10KHz */
+  IFS0bits.T3IF = 0;
+  T3CONbits.TON = 1;
 }
