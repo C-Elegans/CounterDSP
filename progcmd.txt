@@ -1,0 +1,4 @@
+device dsPIC33FJ128GP802
+hwtool PICkit3 -p
+program dist/default/production/CounterDSP.X.production.hex
+quit
