@@ -76,7 +76,6 @@ ymin = 0
 ymax = 3.5
 plt.ylim([ymin, ymax])
 callback = Index()
-
 np.set_printoptions(formatter={'int':hex})
 while True:
     b = '\0'
@@ -92,8 +91,10 @@ while True:
     #     buf += ser.read(len(buf)-512*2)
     ydata = np.fromstring(buf, dtype=np.dtype('<i2'))
     ydata = ntovolts(ydata.astype(np.float))
-    line.set_xdata(np.arange(len(ydata))* current_delay)
-    line.set_ydata(ydata)
-    plt.draw()
-    plt.pause(0.03)
+    if(np.any(ydata < 1.8)):
+        np.savetxt("samples.txt", ydata, fmt="%f", delimiter=',', newline='\n')
+        line.set_xdata(np.arange(len(ydata))* current_delay)
+        line.set_ydata(ydata)
+        plt.draw()
+        plt.pause(0.03)
 
