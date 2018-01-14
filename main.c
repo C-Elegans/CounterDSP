@@ -26,24 +26,33 @@ void setup_clock(void){
   while(!OSCCONbits.LOCK);
 }
 
+void writeBufUART1(void* data, size_t size){
+  char* tmp_ptr = (char*) data;
+  size_t i;
+  for(i=0;i<size;i++){
+    while(U1STAbits.UTXBF);  /* wait if the buffer is full */
+    U1TXREG = *tmp_ptr++;   /* transfer data byte to TX reg */
+    asm volatile(
+    "nop\n"
+    "nop\n"
+    "nop\n"
+    "nop\n");
+  }
+}
 
 void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     LATAbits.LATA4 ^= 1;
     fractional* buf = NULL;
     if(PingPongStatusDMA0()){
-      buf = dmabuf2;
-    } else {
       buf = dmabuf1;
+    } else {
+      buf = dmabuf2;
     }
     int i;
-    putcUART1(0xAA);
-    putcUART1(0x55);
-    putcUART1(0x18);
-    putcUART1(0xc3);
-    for(i=0; i<512;i++){
-      putcUART1(buf[0]>>8);
-      putcUART1(buf[0]&0xff);
-    }
+    char str[] = "\xaa\x55";
+    putsUART1(str);
+    writeBufUART1(buf, 1024);
+    IFS0bits.DMA0IF = 0;
 }
 
 
@@ -64,7 +73,6 @@ int main(void) {
   IEC0bits.DMA0IE = 1;
   configure_adc();
   setupTimer3();
-
   while(1){
   }
   return 0;

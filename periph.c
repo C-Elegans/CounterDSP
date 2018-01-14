@@ -52,7 +52,7 @@ void configure_dma0(void){
   /* Sets the peripheral address to read from */
   DMA0PAD = (int) &ADCBUF0;
   /* Number of words to transfer */
-  DMA0CNT = sizeof(dmabuf1)/sizeof(dmabuf1[0]);
+  DMA0CNT = 512;
   /* Enable the DMA controller */
   DMA0CONbits.CHEN = 1;
 }
@@ -65,7 +65,7 @@ void configure_uart(void){
           UART_DIS_WAKE & UART_DIS_LOOPBACK & UART_DIS_ABAUD &
           UART_BRGH_FOUR & UART_1STOPBIT,
           UART_TX_ENABLE & UART_IrDA_POL_INV_ZERO,
-          9);
+	    FCY/(115200*4)-1);
 }
 
 void setupTimer3(void){
@@ -73,7 +73,7 @@ void setupTimer3(void){
   T3CON = 0;
   T3CONbits.TCKPS = 0b00;	/* Divide by 1 */
   TMR3 = 0;
-  PR3 = FCY/10000LL;		/* Set for 10KHz */
+  PR3 = FCY/5000LL;		/* Set for 10KHz */
   IFS0bits.T3IF = 0;
   T3CONbits.TON = 1;
 }

@@ -26,7 +26,7 @@ installed, then run 'make'.
    - Sampled at 10kHz
    - Cells counted somehow
 
-** TODO List [0%]
+** TODO List [20%]
    - [-] Test the features of the chip [83%]
      - [X] ADC
      - [X] UART
@@ -36,7 +36,7 @@ installed, then run 'make'.
        - [X] ADC
      - [X] 80MHz Clock
      - [X] 10kHz timer
-   - [ ] Create A mini oscilloscope
+   - [X] Create A mini oscilloscope
    - [ ] Collect simulated waveform
    - [ ] Analyze simulated data in matlab, determine best counting method
      - [ ] FFT amplitude
