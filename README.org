@@ -43,3 +43,12 @@ installed, then run 'make'.
      - [ ] FFT amplitude
      - [ ] Correlation + threshold
    - [ ] Program above solution on dsp
+     
+** Collected data
+[[./data/data2.png]]
+
+A large nail dropped through a straw, sampled at 5kHz
+
+[[./data/data4.png]]
+
+A small piece of nail dropped through a straw, 5kHz
