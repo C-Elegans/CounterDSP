@@ -39,9 +39,13 @@ installed, then run 'make'.
    - [X] Create A mini oscilloscope
    - [X] Collect simulated waveform
      - Waveforms are in data/
-   - [ ] Analyze simulated data in matlab, determine best counting method
-     - [ ] FFT amplitude
-     - [ ] Correlation + threshold
+   - [-] Analyze simulated data in matlab, determine best counting method
+     - [X] FFT amplitude
+     - [-] Correlation + threshold
+       - [X] Correlation
+       - [ ] Create better correlation waveform. Currently just a sine wave, but
+	     needs to approximate the triangle-y shape of the actual signal
+       - [ ] Proper threshold amount
    - [ ] Program above solution on dsp
      
 ** Collected data
