@@ -4,3 +4,4 @@ dist/
 *.stm
 *.scl
 *~
+/src/nbproject/private/
