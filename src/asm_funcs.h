@@ -19,4 +19,7 @@
  */
 void convolve(short* signal, uint16_t signal_len, short* kernel, uint16_t klen);
 
+
+void vmul(short* dst, short* src, uint16_t buflen);
+
 #endif

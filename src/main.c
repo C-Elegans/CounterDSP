@@ -56,9 +56,10 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
 }
 
 
+short test1[] __attribute__((space(xmemory)))= {0x100,0x200,0x300,0x400,0x500,0x600,0x700,0x800,0x900,0x1000};
+short test2[] __attribute__((space(ymemory)))= {0x100,0x200,0x300,0x400,0x500,0x600,0x700,0x800,0x900,0x1000};
 int main(void) {
   int i;
-  
   /* Zero the DMA buffer */
   for(i=0;i<sizeof(dmabuf1)/sizeof(dmabuf1[0]);i++)
     dmabuf1[i] = 0;
