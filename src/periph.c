@@ -65,7 +65,7 @@ void configure_uart(void){
           UART_DIS_WAKE & UART_DIS_LOOPBACK & UART_DIS_ABAUD &
           UART_BRGH_FOUR & UART_1STOPBIT,
           UART_TX_ENABLE & UART_IrDA_POL_INV_ZERO,
-	    FCY/(115200*4)-1);
+	    FCY/(500000*4));
 }
 
 void setupTimer3(void){

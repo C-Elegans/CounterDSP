@@ -6,7 +6,7 @@ import math
 import struct
 import serial
 import pdb
-ser = serial.Serial('/dev/cu.usbserial-FTXLR71L', 115200, timeout=0.5);
+ser = serial.Serial('/dev/cu.usbserial-FTXLR71L', 500000, timeout=0.5);
 current_delay = 1/10000.0
 
 
