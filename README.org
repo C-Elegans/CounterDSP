@@ -47,6 +47,13 @@ installed, then run 'make'.
 	     needs to approximate the triangle-y shape of the actual signal
        - [ ] Proper threshold amount
    - [ ] Program above solution on dsp
+     - Collect 256 samples from ADC
+     - Append them to previous 256 samples
+     - Convert samples to complex, pad with 0s to go to 1024 samples
+     - Run FFT
+     - multiply with FFT of the target waveform (stored in program memory)
+     - run IFFT
+     - Threshold + count
      
 ** Collected data
 [[./data/data2.png]]
