@@ -32,11 +32,6 @@ void writeBufUART1(void* data, size_t size){
   for(i=0;i<size;i++){
     while(U1STAbits.UTXBF);  /* wait if the buffer is full */
     U1TXREG = *tmp_ptr++;   /* transfer data byte to TX reg */
-    asm volatile(
-    "nop\n"
-    "nop\n"
-    "nop\n"
-    "nop\n");
   }
 }
 
