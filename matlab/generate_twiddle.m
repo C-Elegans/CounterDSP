@@ -33,8 +33,8 @@ for i = 1:length(real_twiddle)/2
     if mod(i,4) == 1
         fprintf(file,"\n");
     end
-    fprintf(file,"%04x,",floattofrac(real_twiddle(i)));
-    fprintf(file,"%04x,",floattofrac(im_twiddle(i)));
+    fprintf(file,"0x%04x,",floattofrac(real_twiddle(i)));
+    fprintf(file,"0x%04x,",floattofrac(im_twiddle(i)));
 end
 fprintf(file,"};\n");
 if file>2
