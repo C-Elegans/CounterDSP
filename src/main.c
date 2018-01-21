@@ -15,9 +15,13 @@
 #include "spislave.h"
 #include "asm_funcs.h"
 #include "periph.h"
-
+#define REAL_LOGN 10
+#define FFT_BLOCK_SIZE (1<<REAL_LOGN)
 fractional dmabuf1[512] __attribute__((space(dma)));
 fractional dmabuf2[512] __attribute__((space(dma)));
+fractcomplex fftbuf[FFT_BLOCK_SIZE] __attribute__((space(ymemory), aligned(FFT_BLOCK_SIZE * sizeof(fractcomplex))));
+extern const fractcomplex twiddleFactors[]
+__attribute__ ((space(auto_psv), aligned (1024*2)));
 
 void setup_clock(void){
   CLKDIVbits.PLLPRE = 1;
@@ -34,6 +38,20 @@ void writeBufUART1(void* data, size_t size){
     U1TXREG = *tmp_ptr++;   /* transfer data byte to TX reg */
   }
 }
+void fftbufcopy(fractional* source, fractcomplex* dest){
+  int i;
+  fractional buf0 = source[0];
+  for(i=0;i<FFT_BLOCK_SIZE/2;i++){
+    fractional x = source[i] - buf0;
+    x = x >> 1;
+    dest[i].real = x;
+    dest[i].imag = 0;
+  }
+  for(;i<FFT_BLOCK_SIZE;i++){
+    dest[i].real = 0;
+    dest[i].imag = 0;
+  }
+}
 
 void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     LATAbits.LATA4 ^= 1;
@@ -43,6 +61,12 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     } else {
       buf = dmabuf2;
     }
+    fftbufcopy(buf, fftbuf);
+    FFTComplexIP(
+		 REAL_LOGN,
+		 &fftbuf[0],
+		 __builtin_psvoffset(twiddleFactors),
+		 __builtin_psvpage(twiddleFactors));
     int i;
     char str[] = "\xaa\x55";
     putsUART1(str);
