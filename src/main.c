@@ -22,6 +22,8 @@ fractional dmabuf2[512] __attribute__((space(dma)));
 fractcomplex fftbuf[FFT_BLOCK_SIZE] __attribute__((space(ymemory), aligned(FFT_BLOCK_SIZE * sizeof(fractcomplex))));
 extern const fractcomplex twiddleFactors[]
 __attribute__ ((space(auto_psv), aligned (1024*2)));
+extern const fractcomplex twiddleFactorsCon[]
+__attribute__ ((space(auto_psv), aligned (1024*2)));
 
 void setup_clock(void){
   CLKDIVbits.PLLPRE = 1;
@@ -67,16 +69,28 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
 		 &fftbuf[0],
 		 __builtin_psvoffset(twiddleFactors),
 		 __builtin_psvpage(twiddleFactors));
-    int i;
+    BitReverseComplex(REAL_LOGN, &fftbuf[0]);
+    IFFTComplexIP(REAL_LOGN,
+    		  &fftbuf[0],
+    		  __builtin_psvoffset(twiddleFactorsCon),
+    		  __builtin_psvpage(twiddleFactorsCon));
+    /* int i; */
+    /* for(;i<512;i++){ */
+    /*   buf[i] = fftbuf[i].real; */
+    /* } */
     char str[] = "\xaa\x55";
     putsUART1(str);
-    writeBufUART1(buf, 1024);
+    int i;
+    for(i=0;i<512;i++){
+	while(U1STAbits.UTXBF);  /* wait if the buffer is full */
+	U1TXREG = (fftbuf[i].real >> 7) & 0xff;   /* transfer data byte to TX reg */
+	while(U1STAbits.UTXBF);  /* wait if the buffer is full */
+	U1TXREG = (fftbuf[i].real << 1) & 0xff;   /* transfer data byte to TX reg */
+    }
     IFS0bits.DMA0IF = 0;
 }
 
 
-short test1[] __attribute__((space(xmemory)))= {0x100,0x200,0x300,0x400,0x500,0x600,0x700,0x800,0x900,0x1000};
-short test2[] __attribute__((space(ymemory)))= {0x100,0x200,0x300,0x400,0x500,0x600,0x700,0x800,0x900,0x1000};
 int main(void) {
   int i;
   /* Zero the DMA buffer */

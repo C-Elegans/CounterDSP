@@ -23,7 +23,7 @@ twiddle_imag = []
 file.write("#include <dsp.h>\n")
 file.write("const fractcomplex twiddleFactors[]\n")
 file.write("__attribute__ ((space(auto_psv), aligned ({}*2)))= {{".format(fftlen))
-for i in range(0,fftlen):
+for i in range(0,fftlen/2):
     theta = (-2*math.pi*i)/fftlen
     if i%4 == 0:
         file.write("\n")
@@ -33,7 +33,7 @@ for i in range(0,fftlen):
 file.write("\n};\n")
 file.write("const fractcomplex twiddleFactorsCon[]\n")
 file.write("__attribute__ ((space(auto_psv), aligned ({}*2)))= {{".format(fftlen))
-for i in range(0,fftlen):
+for i in range(0,fftlen/2):
     theta = (-2*math.pi*i)/fftlen
     if i%4 == 0:
         file.write("\n")
