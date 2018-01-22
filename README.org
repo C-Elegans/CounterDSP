@@ -63,3 +63,14 @@ A large nail dropped through a straw, sampled at 5kHz
 [[./data/data4.png]]
 
 A small piece of nail dropped through a straw, 5kHz
+
+* Characterization
+** With Two cubic magnets
+   - 58mV output from coil
+   - 30 turns around straw
+   - Straw
+     - 5.3mm diameter
+     - 
+   - ??T field strength
+     - Can calculate
+     - Measure with hall effect sensor
