@@ -1,0 +1,92 @@
+\documentclass{article}
+\title{We need a different amplifier}
+\author{Michael Nolan}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+The current uCurrent style amplifier will not provide good data from the
+uFluidics coil because the uCurrent relies on the source having a very high
+output impedance, whereas the uFluidics coil has a low output impedance.
+Illustrated below, the high impedance source converts a $1nA$ current into
+$1mV$ and feeds it to the op amp to be amplified. Because the sense resistor
+has a significantly lower impedance than the impedance of the current source,
+most of the current flows through the sense resistor and generates a
+comparatively large voltage across it. \\
+\begin{circuitikz}
+    \draw (0,3) node[label=\textit{High impedance source}] {} ;
+    \draw (-1.5, -1) rectangle (2.5, 3);
+    \draw (0,0)  node[ground] (gnd) {}
+    to[I, i=$1nA$] (0,2)
+    to[short] (2,2)
+    to[R, l=$10M\Omega$] (2,0)
+    to[short] (0,0) ;
+    \draw (2,2)
+    to[short] (4,2)
+    node[label=$\approx1mV$] {}
+    to[R, l=$1M\Omega$] (4,0)
+    to[short] (2,0);
+    \draw (6,2.5) node[op amp] (opamp) {}
+    (opamp.+) to[short] (2,2);
+    \draw 
+    (opamp.-) to[R] (3,3) node[ground] (gnd) {};
+    \draw 
+    (opamp.-) to[short, *-] ++(0,2) coordinate (leftR)
+    to[R] (leftR -| opamp.out)
+    to[short, -*] (opamp.out);
+    
+\end{circuitikz}
+\\
+In contrast, in the circuit below, the sense resistor has a much higher
+impedance than that of the source, so the source puts almost it's full voltage
+across the sense resistor. However, since the source voltage is small, the
+voltage would require far more amplification to get to the level of the above
+example. The source below could be transformed to a current source in parallel
+with the $100\Omega$ resistor similar to the above circuit, but since the
+source impedance is much lower than the sense resistor, only a very small
+amount of current will flow through the sense resitor, generating only a very
+small voltage across it.
+\\
+\begin{circuitikz}
+    \draw (0,3) node[label=\textit{Low impedance source}] {} ;
+    \draw (-1.5, -1) rectangle (2.5, 3);
+    \draw (0,0)  node[ground] (gnd) {}
+    to[V, v=$1\mu V$] (0,2)
+    to[R, l=$100\Omega$] (2,2)
+    to[short] (4,2)
+    node[label=$\approx1\mu V$] {}
+    to[R, l=$1M\Omega$] (4,0)
+    to[short] (0,0) ;
+    \draw (6,2.5) node[op amp] (opamp) {}
+    (opamp.+) to[short] (2,2);
+    \draw 
+    (opamp.-) to[R] (3,3) node[ground] (gnd) {};
+    \draw 
+    (opamp.-) to[short, *-] ++(0,2) coordinate (leftR)
+    to[R] (leftR -| opamp.out)
+    to[short, -*] (opamp.out);
+    
+\end{circuitikz}
+\\ \\
+How do we know that the coil has a low impedance? Intuitively, it makes sense
+because it's simply a coil of wire, and it makes sense that the impedance would
+be small (infinitely small, in the case of perfectly conductive wire. This
+agrees with faraday's law of induction, where $$ V = -N \frac{d\Phi}{dt} $$
+meaning that the coil is a voltage source (low impedance). Finally, this is
+confirmed by experiment, when I hooked up a prototype uCurrent to the straw
+coil and saw very little signal (indicating that the signal was a low impedance
+voltage source). 
+\\
+
+Since this is the case, how much amplification do we need? The ADC on the
+microcontroller has 12 bits of resolution, or 4096 different values. The ADC
+linearly assigns these values to voltages between 0 and 3.3V, so we want the
+resting voltage to be around 1.5V, and a decent amount of swing when a cell
+passes through, say 400mV pk/pk. And from the COMSOL simulation the maximum
+voltage produced was around 600nV. So we need amplification of
+$$\frac{400mV}{600nV} = 660,000 = 116dB$$ We'll likely need to cascade op amps
+to keep the feedback resistors within a reasonable value. Additionally, 600nV
+is low enough that it approaches the thermal noise from the op amp itself, so
+the op amps will need to be selected for exceptionally low noise, especially
+low frequency noise since the cells will be traveling fairly slowly.
+\end{document}

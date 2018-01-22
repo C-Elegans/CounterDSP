@@ -56,10 +56,11 @@ installed, then run 'make'.
      - Threshold + count
      
 ** Collected data
+#+attr_html: :width 500px
 [[./data/data2.png]]
 
 A large nail dropped through a straw, sampled at 5kHz
-
+#+attr_html: :width 500px
 [[./data/data4.png]]
 
 A small piece of nail dropped through a straw, 5kHz
