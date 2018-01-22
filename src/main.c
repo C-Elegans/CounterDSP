@@ -45,7 +45,7 @@ void fftbufcopy(fractional* source, fractcomplex* dest){
   fractional buf0 = source[0];
   for(i=0;i<FFT_BLOCK_SIZE/2;i++){
     fractional x = source[i] - buf0;
-    x = x >> 1;
+    x = x >> 0;
     dest[i].real = x;
     dest[i].imag = 0;
   }
@@ -83,9 +83,9 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     int i;
     for(i=0;i<512;i++){
 	while(U1STAbits.UTXBF);  /* wait if the buffer is full */
-	U1TXREG = (fftbuf[i].real >> 7) & 0xff;   /* transfer data byte to TX reg */
+	U1TXREG = (fftbuf[i].real >> 8) & 0xff;   /* transfer data byte to TX reg */
 	while(U1STAbits.UTXBF);  /* wait if the buffer is full */
-	U1TXREG = (fftbuf[i].real << 1) & 0xff;   /* transfer data byte to TX reg */
+	U1TXREG = (fftbuf[i].real << 0) & 0xff;   /* transfer data byte to TX reg */
     }
     IFS0bits.DMA0IF = 0;
 }
