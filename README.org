@@ -88,4 +88,7 @@ A small piece of nail dropped through a straw, 5kHz
    - Outputs 300mV pk/pk for 300nVpk/pk input
    - 1/f Noise at 50mV
 #+attr_html: :width 500px
+[[./photos/schematic.png]]
+#+attr_html: :width 500px
 [[./photos/amp1.png]]
+
