@@ -75,3 +75,17 @@ A small piece of nail dropped through a straw, 5kHz
    - ??T field strength
      - Can calculate
      - Measure with hall effect sensor
+
+* Amplifier
+** Specifications
+   - needs gain of 400mV/600nV=660,000
+   - Uses AD8428 as low noise input amplifier (g=2000)
+   - Uses ADa4528 as final amplifier
+     - Feedback resistors set for g=330, Rf=33k, Rg=100\Omega
+   - +- 5V power supply
+     - May need to do some scaling with a third amp to feed to DSP
+** Simulation
+   - Outputs 300mV pk/pk for 300nVpk/pk input
+   - 1/f Noise at 50mV
+#+attr_html: :width 500px
+[[./photos/amp1.png]]
