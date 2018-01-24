@@ -120,29 +120,6 @@ stabilized op amps. Some op amps that will likely work:\\ \\
 \end{tabular}\\ \\
 
 \section{Stages}
-It may be advantageous to select different op amps for multiple stages of
-amplification. For instance, it is imperative that the initial amplifier be as
-low noise as possible. But once the signal has been amplified to the $\mu V$
-level, having the lowest noise possible becomes somewhat less important, and
-the offset voltage becomes more important as it limits the maximum gain of each
-stage. 
-
-\subsection{Stage connection}
-The connection between each stage will need to remove the DC offset caused by
-the amplified input offset voltage with a high pass filter. Since the COMSOL
-simulation showed that the cells took about 1s to pass through the tube, the
-filter cutoff frequency should be much less than 1s, possibly as low as 0.1s.
-Using an RC high pass filter, and taking C to be $100\mu F$, the resistance
-needed is given by $$R = \frac{1}{2*\pi*0.1Hz*100\mu F} \approx 16k\Omega$$
-So the stages would be connected like so\\\\
-\begin{circuitikz}
-    \draw (0,2.5) node[op amp] (opamp1) {};
-    \draw (6,3) node[op amp] (opamp2) {};
-    \draw
-    (opamp1.out) to[C, l=$100\mu F$] 
-    (4,2.5) to[R, l=$16k\Omega$] (4,.5) node[ground] (gnd) {};
-    \draw (4,2.5) to[short] (opamp2.+) ;
-\end{circuitikz}
-    
+The first amplifier stage should be the AD8428B ultra low noise instrumentation amplifier, as it has a lower 0.1-10Hz noise (40nV) than almost all of the op amps, and does not require external feedback. Therefore I propose using the AD8428B for the initial preamp with a gain of 2000, and the AD4528 for the output stage with gain $660000/2000 = 330$ for a total gain of $660000$.
 
 \end{document}
