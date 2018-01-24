@@ -5,7 +5,12 @@ import numpy as np
 import math
 import struct
 import serial
-import pdb
+import sys
+trigval = 2.0
+if len(sys.argv) > 1:
+    trigval = float(sys.argv[1])
+    print trigval
+
 ser = serial.Serial('/dev/cu.usbserial-FTXLR71L', 500000, timeout=0.5);
 current_delay = 1/10000.0
 
@@ -42,7 +47,7 @@ while True:
     buf = ser.read(512*2)
     ydata = np.fromstring(buf, dtype=np.dtype('<i2'))
     ydata = ntovolts(ydata.astype(np.float))
-    if(np.any(ydata < 2.0)):
+    if(np.any(ydata < trigval)):
         np.savetxt("samples.txt", ydata, fmt="%f", delimiter=',', newline='\n')
         line.set_xdata(np.arange(len(ydata))* current_delay)
         line.set_ydata(ydata)
