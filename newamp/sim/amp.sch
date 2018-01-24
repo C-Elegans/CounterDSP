@@ -9,18 +9,18 @@ device=vsin
 T 45900 46650 5 10 0 0 0 0 1
 footprint=none
 T 45900 46050 5 10 1 1 0 0 1
-value=sin 0 100n 10
+value=sin 0 300n 10
 }
-C 45400 45300 1 0 0 gnd-1.sym
-C 43400 44600 1 0 0 spice-directive-1.sym
+C 45400 44400 1 0 0 gnd-1.sym
+C 42300 44800 1 0 0 spice-directive-1.sym
 {
-T 43500 44900 5 10 0 1 0 0 1
+T 42400 45100 5 10 0 1 0 0 1
 device=directive
-T 43500 45000 5 10 1 1 0 0 1
+T 42400 45200 5 10 1 1 0 0 1
 refdes=A3
-T 43500 44700 5 10 0 1 0 0 1
+T 42400 44900 5 10 0 1 0 0 1
 file=unknown
-T 43500 44700 5 10 1 1 0 0 1
+T 42400 44900 5 10 1 1 0 0 1
 value=.tran 1m 1
 }
 C 47100 45300 1 0 0 ad8428.sym
@@ -142,7 +142,7 @@ device=RESISTOR
 T 52700 45600 5 10 1 1 0 0 1
 refdes=R2
 T 52500 45300 5 10 1 0 0 0 1
-value=1Meg
+value=33k
 }
 C 52200 44400 1 90 0 resistor-1.sym
 {
@@ -156,3 +156,12 @@ value=100
 N 53700 45400 53400 45400 4
 N 52100 45300 52100 45800 4
 N 52500 45400 52100 45400 4
+C 45700 44700 1 90 0 voltage-2.sym
+{
+T 45150 44800 5 10 0 0 90 0 1
+device=VOLTAGE_SOURCE
+T 45200 45000 5 10 1 1 90 0 1
+refdes=V4
+T 45700 44700 5 10 1 0 0 0 1
+value=trnoise(0,.5m,1.1,50e-9)
+}
