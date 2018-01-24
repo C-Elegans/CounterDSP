@@ -5,6 +5,7 @@
 \usepackage{tikz}
 \begin{document}
 \maketitle
+\section{Problem}
 The current uCurrent style amplifier will not provide good data from the
 uFluidics coil because the uCurrent relies on the source having a very high
 output impedance, whereas the uFluidics coil has a low output impedance.
@@ -77,7 +78,7 @@ confirmed by experiment, when I hooked up a prototype uCurrent to the straw
 coil and saw very little signal (indicating that the signal was a low impedance
 voltage source). 
 \\
-
+\section{Solution}
 Since this is the case, how much amplification do we need? The ADC on the
 microcontroller has 12 bits of resolution, or 4096 different values. The ADC
 linearly assigns these values to voltages between 0 and 3.3V, so we want the
@@ -89,4 +90,36 @@ to keep the feedback resistors within a reasonable value. Additionally, 600nV
 is low enough that it approaches the thermal noise from the op amp itself, so
 the op amps will need to be selected for exceptionally low noise, especially
 low frequency noise since the cells will be traveling fairly slowly.
+\\
+\section{Op Amp Selection}
+The op amps used for this amplifier need to have the following characteristics
+\begin{itemize}
+    \item \textless300nV 0.1-10Hz noise
+    \item Very Low 1/f noise
+    \item \textless1uV input offset voltage
+\end{itemize}
+The 0.1-10Hz noise needs to be minimized because that is where the signal will
+be. The 1/f noise is less important, because it is more relevant at higher
+frequencies, but should still be taken into account. The input offset voltage
+will add a DC offset to each amplifier stage, and needs to be taken into
+account to make sure each amplifier stage stays in the middle of its
+input/output voltage range (so no clipping). \\ 
+Most of the op amps in this category are ultra high precision, chopper
+stabilized op amps. Some op amps that will likely work:\\ \\
+\begin{tabular}{|l|c|c|c|}
+    \hline
+    Part & 0.1-10Hz noise $nV$ & 1/f noise $nV/\sqrt{Hz}$ & offset voltage $\mu V$ \\\hline
+    MAX44243 & 117 & 9.0 & 1-5 \\\hline
+    MAX44252 & 123 & 5.9 & 3-6 \\ \hline
+    LT1028   & 90  & 1.0 & 20-80 \\ \hline
+    OPA827   & 250 & 4.0 & 75-150 \\ \hline
+    LT6018   & 30  & 1.2 & 7-50 \\ \hline
+    LT1037   & 130 & 4.5 & 20-60 \\ \hline
+    AD797    & 50  & 2.5 & 10-40 \\ \hline
+    AD4528   & 97  & 5.6 & 0.3-2.5 \\ \hline
+\end{tabular}\\ \\
+
+\section{Stages}
+The first amplifier stage should be the AD8428B ultra low noise instrumentation amplifier, as it has a lower 0.1-10Hz noise (40nV) than almost all of the op amps, and does not require external feedback. Therefore I propose using the AD8428B for the initial preamp with a gain of 2000, and the AD4528 for the output stage with gain $660000/2000 = 330$ for a total gain of $660000$.
+
 \end{document}

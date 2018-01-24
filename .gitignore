@@ -3,5 +3,6 @@ debug/
 dist/
 *.stm
 *.scl
+samples.txt
 *~
 /src/nbproject/private/
