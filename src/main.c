@@ -17,8 +17,9 @@
 #include "periph.h"
 #define REAL_LOGN 10
 #define FFT_BLOCK_SIZE (1<<REAL_LOGN)
-fractional dmabuf1[512] __attribute__((space(dma)));
-fractional dmabuf2[512] __attribute__((space(dma)));
+fractional dmabuf1[256] __attribute__((space(dma)));
+fractional dmabuf2[256] __attribute__((space(dma)));
+fractional tmpbuf[256] __attribute__((space(ymemory)));
 fractcomplex fftbuf[FFT_BLOCK_SIZE] __attribute__((space(ymemory), aligned(FFT_BLOCK_SIZE * sizeof(fractcomplex))));
 extern const fractcomplex twiddleFactors[]
 __attribute__ ((space(auto_psv), aligned (1024*2)));
@@ -42,17 +43,19 @@ void writeBufUART1(void* data, size_t size){
 }
 void fftbufcopy(fractional* source, fractcomplex* dest){
   int i;
-  fractional buf0 = source[0];
-  for(i=0;i<FFT_BLOCK_SIZE/2;i++){
-    fractional x = source[i] - buf0;
-    x = x >> 0;
-    dest[i].real = x;
+  for(i=0;i<256;i++){
+    dest[i].real = tmpbuf[i];
+    dest[i].imag = 0;
+  }
+  for(;i<FFT_BLOCK_SIZE/2;i++){
+    dest[i].real = source[i] >> 1;
     dest[i].imag = 0;
   }
   for(;i<FFT_BLOCK_SIZE;i++){
     dest[i].real = 0;
     dest[i].imag = 0;
   }
+  memcpy(tempbuf, source, sizeof(tmpbuf));
 }
 
 void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
