@@ -52,7 +52,7 @@ void configure_dma0(void){
   /* Sets the peripheral address to read from */
   DMA0PAD = (int) &ADCBUF0;
   /* Number of words to transfer */
-  DMA0CNT = 512;
+  DMA0CNT = 256;
   /* Enable the DMA controller */
   DMA0CONbits.CHEN = 1;
 }
