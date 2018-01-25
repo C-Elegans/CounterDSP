@@ -55,7 +55,7 @@ void fftbufcopy(fractional* source, fractcomplex* dest){
     dest[i].real = 0;
     dest[i].imag = 0;
   }
-  memcpy(tempbuf, source, sizeof(tmpbuf));
+  memcpy(tmpbuf, source, sizeof(tmpbuf));
 }
 
 void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){

@@ -10,7 +10,7 @@ void configure_uart(void);
 void ConvertADC1();
 void setupTimer3(void);
 
-extern fractional dmabuf1[512] __attribute((space(dma)));
-extern fractional dmabuf2[512] __attribute((space(dma)));
+extern fractional dmabuf1[256] __attribute((space(dma)));
+extern fractional dmabuf2[256] __attribute((space(dma)));
 
 #endif
