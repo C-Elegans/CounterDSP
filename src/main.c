@@ -20,11 +20,9 @@
 fractional dmabuf1[256] __attribute__((space(dma)));
 fractional dmabuf2[256] __attribute__((space(dma)));
 fractional tmpbuf[256] __attribute__((space(ymemory)));
-fractcomplex fftbuf[FFT_BLOCK_SIZE] __attribute__((space(ymemory), aligned(FFT_BLOCK_SIZE * sizeof(fractcomplex))));
-extern const fractcomplex twiddleFactors[]
-__attribute__ ((space(auto_psv), aligned (1024*2)));
-extern const fractcomplex twiddleFactorsCon[]
-__attribute__ ((space(auto_psv), aligned (1024*2)));
+fractional convolvebuf[512] __attribute__((space(ymemory)));
+fractional convolvedest[1024] __attribute__((space(ymemory)));
+fractional sig[64] __attribute__((space(xmemory)));
 
 void setup_clock(void){
   CLKDIVbits.PLLPRE = 1;
@@ -41,20 +39,10 @@ void writeBufUART1(void* data, size_t size){
     U1TXREG = *tmp_ptr++;   /* transfer data byte to TX reg */
   }
 }
-void fftbufcopy(fractional* source, fractcomplex* dest){
-  int i;
-  for(i=0;i<256;i++){
-    dest[i].real = tmpbuf[i];
-    dest[i].imag = 0;
-  }
-  for(;i<FFT_BLOCK_SIZE/2;i++){
-    dest[i].real = source[i] >> 1;
-    dest[i].imag = 0;
-  }
-  for(;i<FFT_BLOCK_SIZE;i++){
-    dest[i].real = 0;
-    dest[i].imag = 0;
-  }
+void convbufcopy(fractional* source, fractional* dest){
+  memcpy(dest, tmpbuf, sizeof(tmpbuf));
+  memcpy(dest+sizeof(tmpbuf), source, 256*sizeof(fractional));
+
   memcpy(tmpbuf, source, sizeof(tmpbuf));
 }
 
@@ -66,30 +54,15 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     } else {
       buf = dmabuf2;
     }
-    fftbufcopy(buf, fftbuf);
-    FFTComplexIP(
-		 REAL_LOGN,
-		 &fftbuf[0],
-		 __builtin_psvoffset(twiddleFactors),
-		 __builtin_psvpage(twiddleFactors));
-    BitReverseComplex(REAL_LOGN, &fftbuf[0]);
-    IFFTComplexIP(REAL_LOGN,
-    		  &fftbuf[0],
-    		  __builtin_psvoffset(twiddleFactorsCon),
-    		  __builtin_psvpage(twiddleFactorsCon));
-    /* int i; */
-    /* for(;i<512;i++){ */
-    /*   buf[i] = fftbuf[i].real; */
-    /* } */
+    convbufcopy(buf,convolvebuf);
+    VectorConvolve(sizeof(convolvebuf)/sizeof(fractional),
+		   sizeof(sig)/sizeof(fractional),
+		   convolvedest,
+		   convolvebuf,
+		   sig);
     char str[] = "\xaa\x55";
     putsUART1(str);
-    int i;
-    for(i=0;i<512;i++){
-	while(U1STAbits.UTXBF);  /* wait if the buffer is full */
-	U1TXREG = (fftbuf[i].real >> 8) & 0xff;   /* transfer data byte to TX reg */
-	while(U1STAbits.UTXBF);  /* wait if the buffer is full */
-	U1TXREG = (fftbuf[i].real << 0) & 0xff;   /* transfer data byte to TX reg */
-    }
+    writeBufUART1(convolvedest-1+sizeof(sig)/sizeof(fractional),512);
     IFS0bits.DMA0IF = 0;
 }
 
