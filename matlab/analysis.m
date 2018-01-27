@@ -15,7 +15,7 @@ ctimes = 0:sampletime:period;
 corr = sin(ctimes*frequency*2*pi);
 corr = corr - 1/9*sin(ctimes*3*frequency*2*pi);
 corr = corr + 1/25*sin(ctimes*5*frequency*2*pi);
-corr = horzcat(corr, zeros(1,1024-length(corr)));
+%corr = horzcat(corr, zeros(1,1024-length(corr)));
 scale = sum(corr.^2);
 figure(2);
 
@@ -26,8 +26,10 @@ plot(corr);
 xlim([0,300]);
 figure(3);
 
-convolved = ifft(fft(corr) .* S)/scale;
-plot(convolved);
+%convolved = ifft(fft(corr) .* S)/scale;
+%plot(convolved);
+out = xcorr(samples,corr/scale);
+plot(out.^2);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
