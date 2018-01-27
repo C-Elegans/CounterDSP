@@ -59,17 +59,14 @@ _vmul:
 	MOV W0, W13
 	MOV W0, W8
 	MOV W1, W10
-	LSR W2, #1, W2
 	SUB W2, #1, W2
 
 	;; Prime the loop
 	CLR A, [W8]+=2, W4, [W10]+=2, W5
-	MPY W4*W5, B 
+	MPY W4*W5, A 
 	DO W2, VMULD1
-	MOVSAC A, [W8]+=2, W4, [W10]+=2, W5, [W13]+=2
-	MPY W4*W5, A
 	MOVSAC B, [W8]+=2, W4, [W10]+=2, W5, [W13]+=2
-VMULD1:	MPY W4*W5, B
+VMULD1: MPY W4*W5, A 
 
 
 	pop W8
@@ -78,3 +75,25 @@ VMULD1:	MPY W4*W5, B
 	
 	
     
+.globl _count_spikes
+_count_spikes:			; W0 - pointer to data, W1 - count,
+	                        ; W2 - threshold,		
+	mov W0, W3		; W3 now pointer to data
+	mov #0, W0		; W0 count of spikes
+	mov #0, W5
+	sub W1, #1, W1
+
+	DO W1, countend
+	mov [W3++], W4
+	cp W4, W2
+	rlc W5, W5		; shift C into W5
+	cp W5, #0b1111		; If Spike lasted 4 samples
+	bra NZ, 1f
+	add W0, #1, W0
+
+1:	
+countend:
+	nop
+
+	return
+	

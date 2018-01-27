@@ -48,18 +48,17 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
 		   convolvedest,
 		   convolvebuf,
 		   sig);
+    vmul(convolvebuf, convolvebuf, sizeof(convolvebuf)/2);
     char str[] = "\xaa\x55";
     putsUART1(str);
     writeBufUART1(convolvedest-1+siglen,512);
     IFS0bits.DMA0IF = 0;
 }
 
+fractional test[] = {1,2,3,4,5,6,7,8,9,10};
 
 int main(void) {
-  int i;
-  /* Zero the DMA buffer */
-  for(i=0;i<sizeof(dmabuf1)/sizeof(dmabuf1[0]);i++)
-    dmabuf1[i] = 0;
+  count_spikes(test, sizeof(test)/2,4);
   /* Set RA4 as output and set the pin high */
   TRISAbits.TRISA4 = 0;
   LATAbits.LATA4 = 0;
