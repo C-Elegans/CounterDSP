@@ -26,21 +26,7 @@ fractional convolvedest[1024] __attribute__((space(ymemory)));
 extern int siglen;
 extern fractional sig[] __attribute__((space(xmemory)));
 
-void setup_clock(void){
-  CLKDIVbits.PLLPRE = 1;
-  PLLFBD = 63;
-  CLKDIVbits.PLLPOST = 0;
-  while(!OSCCONbits.LOCK);
-}
 
-void writeBufUART1(void* data, size_t size){
-  char* tmp_ptr = (char*) data;
-  size_t i;
-  for(i=0;i<size;i++){
-    while(U1STAbits.UTXBF);  /* wait if the buffer is full */
-    U1TXREG = *tmp_ptr++;   /* transfer data byte to TX reg */
-  }
-}
 void convbufcopy(fractional* source, fractional* dest){
   memcpy(dest, tmpbuf, sizeof(tmpbuf));
   memcpy(dest+sizeof(tmpbuf), source, 256*sizeof(fractional));

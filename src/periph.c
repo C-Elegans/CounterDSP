@@ -2,6 +2,14 @@
 #include <adc.h>
 #include <dma.h>
 #include <pps.h>
+
+void setup_clock(void){
+  CLKDIVbits.PLLPRE = 1;
+  PLLFBD = 63;
+  CLKDIVbits.PLLPOST = 0;
+  while(!OSCCONbits.LOCK);
+}
+
 void configure_adc(void){
 
 
@@ -66,6 +74,14 @@ void configure_uart(void){
           UART_BRGH_FOUR & UART_1STOPBIT,
           UART_TX_ENABLE & UART_IrDA_POL_INV_ZERO,
 	    FCY/(500000*4));
+}
+void writeBufUART1(void* data, size_t size){
+  char* tmp_ptr = (char*) data;
+  size_t i;
+  for(i=0;i<size;i++){
+    while(U1STAbits.UTXBF);  /* wait if the buffer is full */
+    U1TXREG = *tmp_ptr++;   /* transfer data byte to TX reg */
+  }
 }
 
 void setupTimer3(void){
