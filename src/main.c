@@ -22,7 +22,9 @@ fractional dmabuf2[256] __attribute__((space(dma)));
 fractional tmpbuf[256] __attribute__((space(ymemory)));
 fractional convolvebuf[512] __attribute__((space(ymemory)));
 fractional convolvedest[1024] __attribute__((space(ymemory)));
-fractional sig[64] __attribute__((space(xmemory)));
+
+extern int siglen;
+extern fractional sig[] __attribute__((space(xmemory)));
 
 void setup_clock(void){
   CLKDIVbits.PLLPRE = 1;
@@ -56,13 +58,13 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     }
     convbufcopy(buf,convolvebuf);
     VectorConvolve(sizeof(convolvebuf)/sizeof(fractional),
-		   sizeof(sig)/sizeof(fractional),
+		   siglen,
 		   convolvedest,
 		   convolvebuf,
 		   sig);
     char str[] = "\xaa\x55";
     putsUART1(str);
-    writeBufUART1(convolvedest-1+sizeof(sig)/sizeof(fractional),512);
+    writeBufUART1(convolvedest-1+siglen,512);
     IFS0bits.DMA0IF = 0;
 }
 

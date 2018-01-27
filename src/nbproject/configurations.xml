@@ -20,6 +20,7 @@
       <itemPath>convolve.s</itemPath>
       <itemPath>periph.c</itemPath>
       <itemPath>spislave.c</itemPath>
+      <itemPath>sig.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
