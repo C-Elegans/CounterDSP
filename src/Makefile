@@ -57,6 +57,7 @@ build: .build-post
 # Add your pre 'build' code here...
 
 .build-post: .build-impl
+	-etags -R *
 # Add your post 'build' code here...
 
 
