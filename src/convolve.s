@@ -72,7 +72,26 @@ VMULD1: MPY W4*W5, A
 	pop W8
 	pop W10
 	pop W13
-	
+	return
+
+.global _vsquare
+_vsquare:	
+	;; W0 = source/dest
+	;; W1 = count
+	push W13
+	push W8
+	sub W1, #1, W1
+	mov W0, W13
+	mov W0, W10
+	CLR A, [W10]+=2, W4
+	DO W1, 1f
+	mpy W4*W4, A
+1:	movsac B, [W10]+=2, W4, [W13]+=2
+
+	pop W10
+	pop W13
+	return
+
 	
     
 .globl _count_spikes

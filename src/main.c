@@ -15,6 +15,7 @@
 #include "spislave.h"
 #include "asm_funcs.h"
 #include "periph.h"
+#define ARRAY_LEN(x) (sizeof(x)/sizeof(x[0]))
 #define REAL_LOGN 10
 #define FFT_BLOCK_SIZE (1<<REAL_LOGN)
 fractional dmabuf1[256] __attribute__((space(dma)));
@@ -29,7 +30,7 @@ extern fractional sig[] __attribute__((space(xmemory)));
 
 void convbufcopy(fractional* source, fractional* dest){
   memcpy(dest, tmpbuf, sizeof(tmpbuf));
-  memcpy(dest+sizeof(tmpbuf), source, 256*sizeof(fractional));
+  memcpy(dest+ARRAY_LEN(tmpbuf), source, 256*sizeof(fractional));
 
   memcpy(tmpbuf, source, sizeof(tmpbuf));
 }
@@ -43,22 +44,20 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
       buf = dmabuf2;
     }
     convbufcopy(buf,convolvebuf);
-    /* VectorConvolve(sizeof(convolvebuf)/sizeof(fractional), */
-    /* 		   siglen, */
-    /* 		   convolvedest, */
-    /* 		   convolvebuf, */
-    /* 		   sig); */
-    /* vmul(convolvebuf, convolvebuf, sizeof(convolvebuf)/2); */
+    VectorConvolve(sizeof(convolvebuf)/sizeof(fractional),
+    		   siglen,
+    		   convolvedest,
+    		   convolvebuf,
+    		   sig);
+    vsquare(convolvedest, 512*sizeof(fractional));
     char str[] = "\xaa\x55";
     putsUART1(str);
-    writeBufUART1(buf,512);
+    writeBufUART1(convolvedest+siglen,256*sizeof(fractional));
     IFS0bits.DMA0IF = 0;
 }
 
-fractional test[] = {1,2,3,4,5,6,7,8,9,10};
 
 int main(void) {
-  count_spikes(test, sizeof(test)/2,4);
   /* Set RA4 as output and set the pin high */
   TRISAbits.TRISA4 = 0;
   LATAbits.LATA4 = 0;
