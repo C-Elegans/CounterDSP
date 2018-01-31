@@ -21,7 +21,7 @@ def ntovolts(n):
     return (vcc/2) + vcc*n
         
         
-buflen = 512
+buflen = 256
 
 plt.axis([0,buflen,0,1])
 
@@ -44,7 +44,7 @@ while True:
     if ser.read(1) != '\x55':
         b = 0
         continue
-    buf = ser.read(512*2)
+    buf = ser.read(buflen*2)
     ydata = np.fromstring(buf, dtype=np.dtype('<i2'))
     ydata = ntovolts(ydata.astype(np.float))
     if(np.any(ydata < trigval)):

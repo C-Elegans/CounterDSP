@@ -43,15 +43,15 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
       buf = dmabuf2;
     }
     convbufcopy(buf,convolvebuf);
-    VectorConvolve(sizeof(convolvebuf)/sizeof(fractional),
-		   siglen,
-		   convolvedest,
-		   convolvebuf,
-		   sig);
-    vmul(convolvebuf, convolvebuf, sizeof(convolvebuf)/2);
+    /* VectorConvolve(sizeof(convolvebuf)/sizeof(fractional), */
+    /* 		   siglen, */
+    /* 		   convolvedest, */
+    /* 		   convolvebuf, */
+    /* 		   sig); */
+    /* vmul(convolvebuf, convolvebuf, sizeof(convolvebuf)/2); */
     char str[] = "\xaa\x55";
     putsUART1(str);
-    writeBufUART1(convolvedest-1+siglen,512);
+    writeBufUART1(buf,512);
     IFS0bits.DMA0IF = 0;
 }
 

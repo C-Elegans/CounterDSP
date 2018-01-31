@@ -8,6 +8,7 @@ def f(t):
     y = math.sin(t*frequency*2*math.pi)
     y += -1/9.0 *math.sin(t*3*frequency*2*math.pi)
     y += 1/25.0 *math.sin(t*5*frequency*2*math.pi)
+    y = y/((1+1/9.0+1/25.0)*2)
     return y
 def floattofrac(x):
     if x==1.0:
