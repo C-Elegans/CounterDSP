@@ -63,11 +63,10 @@ _vmul:
 
 	;; Prime the loop
 	CLR A, [W8]+=2, W4, [W10]+=2, W5
-	MPY W4*W5, A 
-	DO W2, 1f
-	MOVSAC B, [W8]+=2, W4, [W10]+=2, W5, [W13]+=2
-1: MPY W4*W5, A 
 
+	DO W2, 1f
+	MPY W4*W5, A 
+1: 	MOVSAC B, [W8]+=2, W4, [W10]+=2, W5, [W13]+=2
 
 	pop W8
 	pop W10
@@ -84,6 +83,7 @@ _vsquare:
 	mov W0, W13
 	mov W0, W10
 	CLR A, [W10]+=2, W4
+
 	DO W1, 1f
 	mpy W4*W4, A
 1:	movsac B, [W10]+=2, W4, [W13]+=2
@@ -100,16 +100,15 @@ _count_spikes:			; W0 - pointer to data, W1 - count,
 	mov W0, W3		; W3 now pointer to data
 	mov #0, W0		; W0 count of spikes
 	mov #0, W5
+	mov #0b1111, W6		; For compare and skip
 	sub W1, #1, W1
 
 	DO W1, 1f
 	mov [W3++], W4
 	cp W4, W2
 	rlc W5, W5		; shift C into W5
-	cp W5, #0b1111		; If Spike lasted 4 samples
-	bra NZ, 1f
-	add W0, #1, W0
-1: 	nop
+	cpsne W5, W6		; If W5!=W6, skip the next instruction
+1: 	add W0, #1, W0		; Add only if W5=W6
 
 	return
 	
