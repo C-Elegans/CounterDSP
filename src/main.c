@@ -16,8 +16,6 @@
 #include "asm_funcs.h"
 #include "periph.h"
 #define ARRAY_LEN(x) (sizeof(x)/sizeof(x[0]))
-#define REAL_LOGN 10
-#define FFT_BLOCK_SIZE (1<<REAL_LOGN)
 fractional dmabuf1[256] __attribute__((space(dma)));
 fractional dmabuf2[256] __attribute__((space(dma)));
 fractional tmpbuf[256] __attribute__((space(ymemory)));
@@ -49,10 +47,12 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     		   convolvedest,
     		   convolvebuf,
     		   sig);
-    vsquare(convolvedest, 512*sizeof(fractional));
+    vshl(convolvedest, 512, 1);
+    vsquare(convolvedest, 512);
+    vshl(convolvedest, 512, 1);
     char str[] = "\xaa\x55";
-    putsUART1(str);
-    writeBufUART1(convolvedest+siglen,256*sizeof(fractional));
+    putsUART1((unsigned int*)str);
+    writeBufUART1(convolvedest+siglen*sizeof(fractional),256*sizeof(fractional));
     IFS0bits.DMA0IF = 0;
 }
 

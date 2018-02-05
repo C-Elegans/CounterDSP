@@ -92,6 +92,18 @@ _vsquare:
 	pop W13
 	return
 
+.global _vshl
+_vshl:	
+	;; W0 = Source/dest
+	;; W1 = count
+	;; W2 = shift
+	sub W1, #1, W1
+	DO W1, 1f
+	mov [W0], W3
+	sl W3, W2, W3
+1:	mov W3, [W0++]
+	return
+
 	
     
 .globl _count_spikes

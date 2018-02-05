@@ -1,14 +1,16 @@
-samples = csvread('../data/samples6.txt'); % skip header
+samples = csvread('../data/samples4.txt'); % skip header
 samplerate = 5000;
 sampletime = 1/samplerate;
 samples = samples-samples(1);
 
 samples = samples.';
 times = (1:length(samples)) * sampletime;
-samples = samples + pinknoise(length(samples)).*0.03;
+samples = samples + pinknoise(length(samples)).*0.00;
 figure(1);
 plot(times,samples);
-
+set(gca, 'FontSize', 14);
+xlabel("Seconds", 'FontSize', 16);
+ylabel("Volts", 'FontSize', 16);
 period = 0.012;
 frequency = 1/period;
 ctimes = 0:sampletime:period;

@@ -6,7 +6,7 @@ import math
 import struct
 import serial
 import sys
-trigval = 2.0
+trigval = 1.5
 if len(sys.argv) > 1:
     trigval = float(sys.argv[1])
     print trigval
@@ -47,7 +47,7 @@ while True:
     buf = ser.read(buflen*2)
     ydata = np.fromstring(buf, dtype=np.dtype('<i2'))
     ydata = ntovolts(ydata.astype(np.float))
-    if(np.any(ydata < trigval)):
+    if(np.any(ydata > trigval)):
         np.savetxt("samples.txt", ydata, fmt="%f", delimiter=',', newline='\n')
         line.set_xdata(np.arange(len(ydata))* current_delay)
         line.set_ydata(ydata)

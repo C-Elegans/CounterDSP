@@ -36,7 +36,7 @@
         <targetDevice>dsPIC33FJ128GP802</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>Simulator</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>1.33</languageToolchainVersion>
         <platform>4</platform>
@@ -106,6 +106,7 @@
         <property key="scalar-model" value="default"/>
         <property key="use-cci" value="false"/>
         <property key="use-iar" value="false"/>
+        <appendMe value="-Wall -Wextra -Werror"/>
       </C30>
       <C30-AR>
         <property key="additional-options-chop-files" value="false"/>
@@ -279,20 +280,13 @@
         <property key="periphComp6.gte" value="gt"/>
         <property key="reset.scl" value="false"/>
         <property key="reset.type" value="MCLR"/>
-        <property key="tracecontrol.collectioninterval" value="1"/>
-        <property key="tracecontrol.collectionunits" value="1"/>
-        <property key="tracecontrol.disablemacros" value="false"/>
         <property key="tracecontrol.include.timestamp" value="summarydataenabled"/>
-        <property key="tracecontrol.medium" value="0"/>
-        <property key="tracecontrol.portselect" value="0"/>
         <property key="tracecontrol.select" value="0"/>
-        <property key="tracecontrol.spiselect" value="0"/>
         <property key="tracecontrol.stallontracebufferfull" value="false"/>
-        <property key="tracecontrol.timerpriority" value="3"/>
-        <property key="tracecontrol.timerselect" value="0"/>
+        <property key="tracecontrol.timestamp" value="0"/>
         <property key="tracecontrol.tracebufmax" value="546000"/>
         <property key="tracecontrol.tracefile" value="defmplabxtrace.log"/>
-        <property key="tracecontrol.tracefilemax" value="10000000"/>
+        <property key="tracecontrol.traceresetonrun" value="false"/>
         <property key="uart0io.output" value="window"/>
         <property key="uart0io.outputfile" value=""/>
         <property key="uart0io.uartioenabled" value="false"/>

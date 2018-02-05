@@ -98,28 +98,28 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/periph.o: periph.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/periph.o.d 
 	@${RM} ${OBJECTDIR}/periph.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  periph.c  -o ${OBJECTDIR}/periph.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/periph.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  periph.c  -o ${OBJECTDIR}/periph.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/periph.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/periph.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/spislave.o: spislave.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spislave.o.d 
 	@${RM} ${OBJECTDIR}/spislave.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  spislave.c  -o ${OBJECTDIR}/spislave.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spislave.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  spislave.c  -o ${OBJECTDIR}/spislave.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spislave.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/spislave.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/sig.o: sig.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/sig.o.d 
 	@${RM} ${OBJECTDIR}/sig.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  sig.c  -o ${OBJECTDIR}/sig.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sig.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sig.c  -o ${OBJECTDIR}/sig.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sig.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/sig.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
@@ -127,28 +127,28 @@ ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
 	@${RM} ${OBJECTDIR}/main.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/periph.o: periph.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/periph.o.d 
 	@${RM} ${OBJECTDIR}/periph.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  periph.c  -o ${OBJECTDIR}/periph.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/periph.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  periph.c  -o ${OBJECTDIR}/periph.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/periph.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/periph.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/spislave.o: spislave.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spislave.o.d 
 	@${RM} ${OBJECTDIR}/spislave.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  spislave.c  -o ${OBJECTDIR}/spislave.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spislave.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  spislave.c  -o ${OBJECTDIR}/spislave.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spislave.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/spislave.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/sig.o: sig.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/sig.o.d 
 	@${RM} ${OBJECTDIR}/sig.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  sig.c  -o ${OBJECTDIR}/sig.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sig.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	${MP_CC} $(MP_EXTRA_CC_PRE)  sig.c  -o ${OBJECTDIR}/sig.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/sig.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off   -Wall -Wextra -Werror
 	@${FIXDEPS} "${OBJECTDIR}/sig.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
@@ -160,7 +160,7 @@ ${OBJECTDIR}/convolve.o: convolve.s  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/convolve.o.d 
 	@${RM} ${OBJECTDIR}/convolve.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  convolve.s  -o ${OBJECTDIR}/convolve.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  -Wa,-MD,"${OBJECTDIR}/convolve.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)
+	${MP_CC} $(MP_EXTRA_AS_PRE)  convolve.s  -o ${OBJECTDIR}/convolve.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  -Wa,-MD,"${OBJECTDIR}/convolve.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,-g,--no-relax$(MP_EXTRA_AS_POST)
 	@${FIXDEPS} "${OBJECTDIR}/convolve.o.d"  $(SILENT)  -rsi ${MP_CC_DIR}../  
 	
 else
@@ -184,7 +184,7 @@ endif
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/src.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  /Applications/microchip/xc16/v1.33/lib/libdsp-elf.a /Applications/microchip/xc16/v1.33/lib/dsPIC33F/libp33FJ128GP802-elf.a  
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/src.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}    /Applications/microchip/xc16/v1.33/lib/libdsp-elf.a /Applications/microchip/xc16/v1.33/lib/dsPIC33F/libp33FJ128GP802-elf.a  -mcpu=$(MP_PROCESSOR_OPTION)        -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)      -Wl,,,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml$(MP_EXTRA_LD_POST) 
+	${MP_CC} $(MP_EXTRA_LD_PRE)  -o dist/${CND_CONF}/${IMAGE_TYPE}/src.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}    /Applications/microchip/xc16/v1.33/lib/libdsp-elf.a /Applications/microchip/xc16/v1.33/lib/dsPIC33F/libp33FJ128GP802-elf.a  -mcpu=$(MP_PROCESSOR_OPTION)        -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)   -mreserve=data@0x800:0x81F -mreserve=data@0x820:0x821 -mreserve=data@0x822:0x823 -mreserve=data@0x824:0x825 -mreserve=data@0x826:0x84F   -Wl,,,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_PK3=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml$(MP_EXTRA_LD_POST) 
 	
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/src.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk  /Applications/microchip/xc16/v1.33/lib/libdsp-elf.a /Applications/microchip/xc16/v1.33/lib/dsPIC33F/libp33FJ128GP802-elf.a 

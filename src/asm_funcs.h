@@ -24,6 +24,7 @@ void convolve(fractional* signal, uint16_t signal_len, short* kernel, uint16_t k
 void vmul(fractional* dst, short* src, uint16_t buflen);
 void vsquare(fractional* dst, uint16_t buflen);
 uint16_t count_spikes(fractional* data, uint16_t len, fractional threshold);
+void vshl(fractional* dst, uint16_t len, uint16_t shifter);
 
 
 #endif
