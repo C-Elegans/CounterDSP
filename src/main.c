@@ -25,6 +25,8 @@ fractional convolvedest[1024] __attribute__((space(ymemory)));
 extern int siglen;
 extern fractional sig[] __attribute__((space(xmemory)));
 
+int total = 0;
+
 
 void convbufcopy(fractional* source, fractional* dest){
   memcpy(dest, tmpbuf, sizeof(tmpbuf));
@@ -50,9 +52,12 @@ void __attribute__((interrupt, no_auto_psv)) _DMA0Interrupt(void){
     vshl(convolvedest, 512, 1);
     vsquare(convolvedest, 512);
     vshl(convolvedest, 512, 1);
+    total += count_spikes(convolvedest+siglen, 256, Q15(0.2));
     char str[] = "\xaa\x55";
     putsUART1((unsigned int*)str);
-    writeBufUART1(convolvedest+siglen*sizeof(fractional),256*sizeof(fractional));
+    writeBufUART1(&total, sizeof(total));
+    writeBufUART1(convolvedest+siglen,256*sizeof(fractional));
+
     IFS0bits.DMA0IF = 0;
 }
 

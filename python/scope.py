@@ -44,10 +44,12 @@ while True:
     if ser.read(1) != '\x55':
         b = 0
         continue
+    count = struct.unpack("<h", ser.read(2))[0]
     buf = ser.read(buflen*2)
-    ydata = np.fromstring(buf, dtype=np.dtype('<i2'))
+    ydata = np.fromstring(buf, dtype=np.dtype('<u2'))
     ydata = ntovolts(ydata.astype(np.float))
     if(np.any(ydata > trigval)):
+        print count
         np.savetxt("samples.txt", ydata, fmt="%f", delimiter=',', newline='\n')
         line.set_xdata(np.arange(len(ydata))* current_delay)
         line.set_ydata(ydata)
