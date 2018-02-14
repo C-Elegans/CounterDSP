@@ -6,13 +6,14 @@
 \author{Michael Nolan}
 \begin{document}
 \maketitle \par
+\section{DSP Portion}
 Because the uFluidics device generates an extremely weak signal, when
 the signal reaches the circuit to count the cells, it will have quite
 a lot of noise in it. In order to accurately count the cells, the
 signal will need to be processed in order to remove the noise and
 detect when a cell passes through the device.
 
-\section{DSP}
+\subsection{DSP}
 The DSP for this project needed to 
 \begin{itemize}
 \item Have a low cost
@@ -29,7 +30,7 @@ use. Additionally, a less powerful DSP from the same product line
 could be used in the final product after determining exactly how much
 ram and processing power are needed
 
-\section{Processing}
+\subsection{Processing}
 
 According to \cite{dspguide}, the optimal way to separate a known
 signal from white noise is to use correlation. Via COMSOL simulation
@@ -84,6 +85,21 @@ threshold value are counted, and the result appears in Figure
   \label{fig:result}
 \end{figure}
 
+\subsection{Software}
+
+The DSP was programmed in C, with some functions, such as squaring and
+thresholding, written in assembly. The processing is as above, with
+some additional considerations for continuous processing. 256 samples
+are read from the ADC and fed into a buffer, along with the previous
+256 samples. Then, those 512 samples are correlated with the signal
+from Fig. \,\ref{fig:target}, and the resulting signal is placed into
+another buffer. Each sample in the buffer is squared, and then the 256
+samples starting at sample number $256-61=195$ (256 - samples from the
+previous sample period, 61 - number of samples in the target signal)
+are fed to the threshold counting function, which counts the number of
+times the signal crosses the threshold value going positive. The
+threshold is only run on these samples so that a cell that generates a
+signal between the two aquisition periods will still get counted.
 
 \newpage
 \bibliographystyle{ieeetr} \bibliography{dsp}{}
