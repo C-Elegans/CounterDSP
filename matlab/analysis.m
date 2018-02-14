@@ -5,6 +5,15 @@ samples = samples-samples(1);
 
 samples = samples.';
 times = (1:length(samples)) * sampletime;
+figure(5);
+plot(times,samples, 'LineWidth', 1);
+set(gca, 'FontSize', 14);
+title('Target Signal');
+
+xlabel("Seconds", 'FontSize', 16);
+ylabel("Volts", 'FontSize', 16);
+xlim([0,0.1]);
+print('plot5', '-dpng');
 samples = samples + pinknoise(length(samples)).*0.02;
 figure(1);
 plot(times,samples, 'LineWidth', 1);
@@ -60,7 +69,7 @@ hold off
 xlim([0,otimes(length(otimes))]);
 legend('signal', 'threshold');
 set(gca, 'FontSize', 14);
-title('Convolved signal');
+title('Square and Threshold');
 
 xlabel("Seconds", 'FontSize', 16);
 ylabel("Units", 'FontSize', 16);
