@@ -1,6 +1,7 @@
 .text
 .include "xc.inc"
     
+	;; Unused right now
 .global _convolve
 _convolve: 
 	push W8
@@ -29,24 +30,6 @@ _convolve:
 	pop W8
 return
     
-_scalepadbuffer:
-	;; W0 = pointer to the collected samples
-	;; W1 = pointer to the destination buffer
-	
-	;; Normalize the samples to 0 and divide by 2 for fft
-	MOV [W0], W3
-	DO #511, 1f
-	MOV [W0++], W2
-	SUB W2, W3, W2
-	ASR W2, #1, W2
-1:	MOV W2, [W1++]
-
-	;; Pad the buffer with 0s
-	MOV #0, W2
-	ADD W1, #2, W0
-	REPEAT #511
-	MOV W2, [W1++]
-	return
 .global _vmul
 _vmul:
 	
@@ -73,6 +56,7 @@ _vmul:
 	pop W13
 	return
 
+	;; Squares the signal in place
 .global _vsquare
 _vsquare:	
 	;; W0 = source/dest
@@ -92,6 +76,7 @@ _vsquare:
 	pop W13
 	return
 
+	;; left shift the signal by W2
 .global _vshl
 _vshl:	
 	;; W0 = Source/dest
@@ -105,13 +90,21 @@ _vshl:
 	return
 
 	
-    
+	;; Count the number of times a positive going edge crosses the
+	;; threshold value. This subroutine uses the carry flag and the
+	;; rlc instruction to place in W5 the last 16 comparisons with
+	;; the threshold. If comparisons 5-16 are 0 (the value is less
+	;; than the threshold) and comparisons 1-4 are 1 (the value is
+	;; greater than the threshold) the subroutine will increment its
+	;; counter. This provides a decent amount of high frequency noise
+	;; immunity in the threshold function.
 .globl _count_spikes
 _count_spikes:			; W0 - pointer to data, W1 - count,
 	                        ; W2 - threshold,		
 	mov W0, W3		; W3 now pointer to data
 	mov #0, W0		; W0 count of spikes
 	mov #0, W5
+	mov threshold_save, W5
 	mov #0b1111, W6		; For compare and skip
 	sub W1, #1, W1
 
@@ -122,5 +115,10 @@ _count_spikes:			; W0 - pointer to data, W1 - count,
 	cpsne W5, W6		; If W5!=W6, skip the next instruction
 1: 	add W0, #1, W0		; Add only if W5=W6
 
+	mov W5, threshold_save
 	return
+
+	.section .xbss, bss, xmemory
+threshold_save:
+	.space 2
 	

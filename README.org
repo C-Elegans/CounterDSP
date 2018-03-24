@@ -56,7 +56,9 @@ installed, then run 'make'.
 #      - run IFFT
 #      - Threshold + count
      
-** Version 0.2 TODO [0%]
+** Version 0.2 TODO [16%]
+   - [ ] Comment code
+   - [X] Clean up code
    - [ ] Add display [0%]
      - [ ] Choose display
      - [ ] Find/Write library
