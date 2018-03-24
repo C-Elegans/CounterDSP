@@ -26,35 +26,54 @@ installed, then run 'make'.
    - Sampled at 10kHz
    - Cells counted somehow
 
-** TODO List [40%]
-   - [-] Test the features of the chip [83%]
-     - [X] ADC
-     - [X] UART
-     - [X] SPI
-     - [-] DMA [1/2]
-       - [ ] UART
-       - [X] ADC
-     - [X] 80MHz Clock
-     - [X] 10kHz timer
-   - [X] Create A mini oscilloscope
-   - [X] Collect simulated waveform
-     - Waveforms are in data/
-   - [-] Analyze simulated data in matlab, determine best counting method
-     - [X] FFT amplitude
-     - [-] Correlation + threshold
-       - [X] Correlation
-       - [ ] Create better correlation waveform. Currently just a sine wave, but
-	     needs to approximate the triangle-y shape of the actual signal
-       - [ ] Proper threshold amount
-   - [ ] Program above solution on dsp
-     - Collect 256 samples from ADC
-     - Append them to previous 256 samples
-     - Convert samples to complex, pad with 0s to go to 1024 samples
-     - Run FFT
-     - multiply with FFT of the target waveform (stored in program memory)
-     - run IFFT
-     - Threshold + count
+# ** DONE List [100%]
+#    CLOSED: [2018-03-24 Sat 14:36]
+#    - [X] Test the features of the chip [100%]
+#      - [X] ADC
+#      - [X] UART
+#      - [X] SPI
+#      - [X] DMA [2/2]
+#        - [X] UART
+#        - [X] ADC
+#      - [X] 80MHz Clock
+#      - [X] 10kHz timer
+#    - [X] Create A mini oscilloscope
+#    - [X] Collect simulated waveform
+#      - Waveforms are in data/
+#    - [X] Analyze simulated data in matlab, determine best counting method
+#      - [X] FFT amplitude
+#      - [X] Correlation + threshold
+#        - [X] Correlation
+#        - [X] Create better correlation waveform. Currently just a sine wave, but
+# 	     needs to approximate the triangle-y shape of the actual signal
+#        - [X] Proper threshold amount
+#    - [X] Program above solution on dsp
+#      - Collect 256 samples from ADC
+#      - Append them to previous 256 samples
+#      - Convert samples to complex, pad with 0s to go to 1024 samples
+#      - Run FFT
+#      - multiply with FFT of the target waveform (stored in program memory)
+#      - run IFFT
+#      - Threshold + count
      
+** Version 0.2 TODO [0%]
+   - [ ] Add display [0%]
+     - [ ] Choose display
+     - [ ] Find/Write library
+     - [ ] Write display routine
+   - [ ] Increase number of channels
+     - Goal of 3
+   - [ ] Reduce memory usage per channel [0%]
+     - [ ] Eliminate ping pong buffer
+     - [ ] Copy unused data to X memory
+     - [ ] Reduce sample storage [0/3]
+       - [ ] Do unbatched correlation + threshold
+       - [ ] Reduce size of buffers
+       - [ ] Reduce sample rate
+   - [ ] Design PCB
+
+
+
 ** Collected data
 #+attr_html: :width 500px
 [[./data/data2.png]]
