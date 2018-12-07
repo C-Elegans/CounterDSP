@@ -39,8 +39,8 @@ def main():
             fvco = fpfd * (plldiv + 2)
             if fvco < 100 or fvco > 200:
                 continue
-            for pllpost in range(0,3):
-                fout = fvco/ (2*(pllpost+1))
+            for pllpost in range(0,2):
+                fout = fvco/ (2**(pllpost+1))
                 if (fout > 80.0):
                     continue
                 if abs(fout-outputfreq) < abs(closestfreq-outputfreq):

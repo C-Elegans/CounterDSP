@@ -193,7 +193,7 @@ refdes=A3
 T 42600 43400 5 10 0 1 0 0 1
 file=unknown
 T 42600 43400 5 10 1 1 0 0 1
-value=.noise v(out) V1 oct 100 0.1 1Meg
+value=.tran 1u 10m
 }
 C 45600 44700 1 90 0 inductor-1.sym
 {
