@@ -4,10 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>asm_funcs.h</itemPath>
-      <itemPath>config.h</itemPath>
-      <itemPath>periph.h</itemPath>
-      <itemPath>spislave.h</itemPath>
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>src/config.h</itemPath>
+        <itemPath>src/spislave.h</itemPath>
+        <itemPath>src/asm_funcs.h</itemPath>
+        <itemPath>src/periph.h</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -16,10 +18,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>main.c</itemPath>
-      <itemPath>convolve.s</itemPath>
-      <itemPath>periph.c</itemPath>
-      <itemPath>spislave.c</itemPath>
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>src/periph.c</itemPath>
+        <itemPath>src/sig.c</itemPath>
+        <itemPath>src/twid.c</itemPath>
+        <itemPath>src/main.c</itemPath>
+        <itemPath>src/spislave.c</itemPath>
+        <itemPath>src/convolve.s</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -27,6 +33,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
